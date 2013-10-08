@@ -40,6 +40,7 @@ module.exports = function(grunt) {
                 files: [
                     {expand: true, src: ['./*.json'], dest: 'dist/', filter: 'isFile'}, //copy *.json
                     {expand: true, src: ['./*.md'], dest: 'dist/', filter: 'isFile'}, // copy *.md
+                    {expand: true, src: ['./*.css'], dest: 'dist/', filter: 'isFile'}, // copy *.css
                     {expand: true, src: ['./src/covers/**'], dest: 'dist/covers', filter: 'isFile', flatten:true} // copy covers
                 ]
             }
