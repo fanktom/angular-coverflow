@@ -26,7 +26,7 @@ module.exports = function(grunt) {
         },
         uglify: {
             dist: {
-                files: { 'dist/gestures.min.js': [ 'dist/gestures.js' ] }
+                files: { 'dist/coverflow.min.js': [ 'dist/coverflow.js' ] }
             }
         },
         jshint : {
@@ -38,10 +38,9 @@ module.exports = function(grunt) {
         copy: {
             main: {
                 files: [
-                    {expand: true, src: ['./*.json'], dest: 'dist/',
-                      filter: 'isFile'}, //copy *.json
-                    {expand: true, src: ['./*.md'], dest: 'dist/',
-                        filter: 'isFile'}, // copy *.md
+                    {expand: true, src: ['./*.json'], dest: 'dist/', filter: 'isFile'}, //copy *.json
+                    {expand: true, src: ['./*.md'], dest: 'dist/', filter: 'isFile'}, // copy *.md
+                    {expand: true, src: ['./src/covers/**'], dest: 'dist/covers', filter: 'isFile', flatten:true} // copy covers
                 ]
             }
         }
