@@ -1,0 +1,27 @@
+.coverflow-container{
+  width: 568px;
+  height: 320px;
+  background-image: -webkit-gradient(
+  	linear,
+  	left bottom,
+  	left top,
+  	color-stop(0.05, rgb(46,46,46)),
+  	color-stop(0.53, rgb(0,0,0))
+  );
+  -webkit-perspective: 900;
+  overflow: hidden;
+}
+
+.coverflow-cover{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 200px;
+  -webkit-box-reflect: below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(rgba(255, 255, 255, 0.5)));
+  box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, .3);
+  background-image: url('covers/cover.png');
+  color: white;
+  text-align: center;
+  line-height: 200px;
+}
