@@ -20,9 +20,9 @@ angular.module('angular-coverflow').directive('coverflow', ['covers', function(c
       }).init();
       
       // Setup touch listeners
-      element.bind('touchstart',  scope.flow.touchStart.bind(scope.coverflow));
-      element.bind('touchmove',   scope.flow.touchMove.bind(scope.coverflow));
-      element.bind('touchend',    scope.flow.touchEnd.bind(scope.coverflow));
+      element.bind('touchstart',  scope.coverflow.touchStart.bind(scope.coverflow));
+      element.bind('touchmove',   scope.coverflow.touchMove.bind(scope.coverflow));
+      element.bind('touchend',    scope.coverflow.touchEnd.bind(scope.coverflow));
     } 
   };
 }]);
@@ -58,7 +58,7 @@ var Cover = function(params){
 
 Cover.prototype.init = function(){
   this.flow.container.append(this.template());
-  this.element = document.getElementById("flow-cover-" + this.coverId);
+  this.element = document.getElementById("coverflow-cover-" + this.coverId);
   this.updateCover(this.image);
   return this;
 };
