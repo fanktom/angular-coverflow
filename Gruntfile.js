@@ -8,8 +8,10 @@ module.exports = function(grunt) {
         concat : {
             dist : {
                 files : {
-                    'dist/gestures.js' : [ 'bower_components/hammerjs/dist/hammer.js',
-                            'src/gestures.js' ]
+                    'dist/coverflow.js' : [
+                      'src/coverflow.js',
+                      'src/covers.js'
+                    ]
                 }
             }
         },
@@ -33,17 +35,6 @@ module.exports = function(grunt) {
             },
             all : [ 'Gruntfile.js', 'src/*.js' ]
         },
-        compress: {
-            main: {
-                options: {
-                    archive: 'angular-gestures.zip'
-                },
-                files: [{flatten: true,
-                    src: ['dist/*'],
-                    dest: 'angular-gestures/',
-                    filter: 'isFile'}]
-            }
-        },
         copy: {
             main: {
                 files: [
@@ -61,8 +52,7 @@ module.exports = function(grunt) {
         'jshint',
         'concat',
         'uglify',
-        'copy',
-        'compress'
+        'copy'
     ]);
 
     grunt.registerTask('default', [ 'build' ]);
