@@ -1,19 +1,13 @@
 {
   "name": "angular-coverflow",
-  "description": "AngularJS directive that adds support for coverflow to your app.",
+  "description": "Angular coverflow directive using requestAnimationFrame technique for smooth rendering",
   "version": "0.0.1",
-  "main": "dist/coverflow.min.js",
-  "scripts": [
-    "dist/coverflow.min.js"
-  ],
+  "main": "coverflow.js",
   "repository": {
     "type": "git",
-    "url": "https://version.mi.hdm-stuttgart.de/git/angular-coverflow"
+    "url": "https://github.com/southdesign/angular-coverflow"
   },
   "author": "fankhauser",
   "license": "MIT",
-  "readmeFilename": "README.md",
-  "dependencies": {
-    "angular": "~1.0.6"
-  }
+  "readmeFilename": "README.md"
 }
