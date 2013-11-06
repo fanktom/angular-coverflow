@@ -4,6 +4,8 @@ An angular coverflow directive that uses `requestAnimationFrame()` and CSS3 tran
 The directive with all its content is embedded in angular's digest cycle so all values are watchable, etc.
 
 ## Examples
+Use the Chrome touch overrides or a mobile device to swipe over the covers:
+
 * [`images.html`](http://southdesign.github.io/angular-coverflow/examples/images.htm)
 * [`endless.html`](http://southdesign.github.io/angular-coverflow/examples/endless.htm)
 
@@ -61,3 +63,6 @@ Include the directive:
   <!-- Use {{coverflow.positionIndex}}, ... to display current selected cover -->
 </body>
 ```
+
+## License
+MIT
