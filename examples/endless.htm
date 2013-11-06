@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="angular-coverflow-example">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=0, initial-scale=1.0">
+    <title>angular-coverflow Images Example</title>
+    <link href="../coverflow.css" rel="stylesheet">
+    <style type="text/css">body{ padding: 0; margin: 0; }</style>
+    
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="../coverflow.js"></script>
+    <script src="example-controller.js"></script>
+  </head>
+
+  <body ng-controller="example-controller">
+    <coverflow coverflow="coverflow"></coverflow>
+    
+    <!-- Use {{coverflow.positionIndex}}, ... to display current selected cover -->
+  </body>
+</html>

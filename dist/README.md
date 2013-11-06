@@ -1,3 +1,0 @@
-# angular-coverflow
-
-Todo

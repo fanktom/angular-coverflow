@@ -2,12 +2,12 @@
 
 angular.module('angular-coverflow', []);
 
-angular.module('angular-coverflow').directive('coverflow', ['covers', function(covers){
+angular.module('angular-coverflow').directive('coverflow', function(){
   return {
     restrict: 'E',
     replace: true,
     template: '<div class="coverflow-container"></div>',
-    scope: { coverflow: "=" },
+    scope: { coverflow: "=", images: "=" },
     link: function(scope, element, attributes) {
       
       // Initialize
@@ -16,7 +16,7 @@ angular.module('angular-coverflow').directive('coverflow', ['covers', function(c
         height:  320,
         element: element,
         scope:   scope,
-        images:  covers.all()
+        images:  scope.images
       }).init();
       
       // Setup touch listeners
@@ -25,7 +25,7 @@ angular.module('angular-coverflow').directive('coverflow', ['covers', function(c
       element.bind('touchend',    scope.coverflow.touchEnd.bind(scope.coverflow));
     } 
   };
-}]);
+});
 
 
 // Request Animation Frame Shim - TODO: Availability Comments
@@ -57,17 +57,14 @@ var Cover = function(params){
 };
 
 Cover.prototype.init = function(){
-  this.flow.container.append(this.template());
-  this.element = document.getElementById("coverflow-cover-" + this.coverId);
+  this.flow.element.append(this.template());
+  this.element = this.flow.element.find(".coverflow-cover-id-" + this.coverId);
   this.updateCover(this.image);
   return this;
 };
 
 Cover.prototype.template = function(){
-  var div = document.createElement("div");
-  div.className = "coverflow-cover";
-  div.id        = "coverflow-cover-" + this.coverId;
-  return div;
+  return '<div class="coverflow-cover coverflow-cover-id-' + this.coverId + '"></div>';
 };
 
 Cover.prototype.center = function(){
@@ -76,12 +73,12 @@ Cover.prototype.center = function(){
 
 Cover.prototype.updateCover = function(image){
   this.image = image;
-  this.element.style.backgroundImage = "url('" + this.image + "')";
+  this.element[0].style.backgroundImage = "url('" + this.image + "')";
 }
 
 // TODO: fix -webkit-prefix
 Cover.prototype.applyNextStyle = function(){
-  this.element.style["-webkit-transform"] = "translate3d(" + this.x + "px, " + this.y + "px, 0px) rotateY(" + this.rotation + "deg) scale3d(" + this.scale + ", " + this.scale + ", 1)";
+  this.element[0].style["-webkit-transform"] = "translate3d(" + this.x + "px, " + this.y + "px, 0px) rotateY(" + this.rotation + "deg) scale3d(" + this.scale + ", " + this.scale + ", 1)";
 };
 
 Cover.prototype.calculateNextStyle = function(){
@@ -147,6 +144,7 @@ var Coverflow = function(params){
   this.width              = params.width;
   this.height             = params.height;
   this.images             = params.images;
+  this.element            = params.element;
   this.center             = this.width/2;
   this.scope              = params.scope;
   this.totalCovers        = 4;
@@ -156,7 +154,6 @@ var Coverflow = function(params){
   this.cache              = [];
   this.totalImages        = 0;
   this.touch              = {};
-  this.container          = params.element;
   this.velocity           = 0.0;
   this.easing             = 1.05;
   this.position           = 0.0;
@@ -172,7 +169,7 @@ Coverflow.prototype.init = function(){
   
   // Create
   for(var i = 0; i < this.totalCovers; i++){
-    this.covers[i] = new Cover({ id: i, image: "cover.png", size: 200, flow: this }).init();
+    this.covers[i] = new Cover({ id: i, image: "../covers/cover.png", size: 200, flow: this }).init();
   }
   
   // Images
@@ -183,6 +180,13 @@ Coverflow.prototype.init = function(){
     
     for(var i = 0; i < this.totalCovers; i++){
       this.covers[i].updateCover(this.images[i]);
+    }
+    
+    // Preload
+    var totalImages = this.images.length;
+    for(var i = 0; i < totalImages; i++){
+      var cachedImage = new Image();
+      cachedImage.src = this.images[i];
     }
   }
   
@@ -246,12 +250,12 @@ Coverflow.prototype.coverForPositionIndex = function(index){
 Coverflow.prototype.touchStart = function(event){
   event.preventDefault();
   this.velocity = 0;
-  this.touch.start = event.changedTouches[0].pageX;
+  this.touch.start = event.originalEvent.changedTouches[0].pageX;
 }
 
 Coverflow.prototype.touchMove = function(event){
   event.preventDefault();
-  var now   = event.changedTouches[0].pageX,
+  var now   = event.originalEvent.changedTouches[0].pageX,
       delta = this.touch.start - now;
   this.position -= delta;
   this.velocity -= delta/4;
