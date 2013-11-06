@@ -5,7 +5,6 @@ The directive with all its content is embedded in angular's digest cycle so all 
 
 ## Examples
 Use the Chrome touch overrides or a mobile device to swipe over the covers:
-
 * [`images.html`](http://southdesign.github.io/angular-coverflow/examples/images.htm)
 * [`endless.html`](http://southdesign.github.io/angular-coverflow/examples/endless.htm)
 
