@@ -7,7 +7,7 @@ angular.module('angular-coverflow').directive('coverflow', function(){
     restrict: 'E',
     replace: true,
     template: '<div class="coverflow-container"></div>',
-    scope: { coverflow: "=", images: "="},
+    scope: { coverflow: "=", images: "=" },
     link: function(scope, element, attributes) {
       
       // Initialize
@@ -16,8 +16,7 @@ angular.module('angular-coverflow').directive('coverflow', function(){
         height:  320,
         element: element,
         scope:   scope,
-        images:  scope.images,
-        covers: scope.covers
+        images:  scope.images
       }).init();
       
       // Setup touch listeners
