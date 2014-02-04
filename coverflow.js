@@ -7,7 +7,7 @@ angular.module('angular-coverflow').directive('coverflow', function(){
     restrict: 'E',
     replace: true,
     template: '<div class="coverflow-container"></div>',
-    scope: { coverflow: "=", images: "=", covers:"=" },
+    scope: { coverflow: "=", images: "="},
     link: function(scope, element, attributes) {
       
       // Initialize
