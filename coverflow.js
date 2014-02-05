@@ -276,12 +276,12 @@ Coverflow.prototype.mouseDown = function(event){
   event.preventDefault();
   this.velocity = 0;
   this.touch.start = event.pageX;
-  this.moving = true;
+  this.mouseIsDown = true;
 }
 
 Coverflow.prototype.mouseMove = function(event){
   event.preventDefault();
-  if (this.moving){
+  if (this.mouseIsDown){
     var now   = event.originalEvent.pageX,
         delta = this.touch.start - now;
     this.position -= delta;
@@ -292,5 +292,5 @@ Coverflow.prototype.mouseMove = function(event){
 
 Coverflow.prototype.mouseUp = function(event){
   event.preventDefault();
-  this.moving = false;
+  this.mouseIsDown = false;
 }
