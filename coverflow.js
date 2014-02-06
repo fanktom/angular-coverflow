@@ -23,6 +23,11 @@ angular.module('angular-coverflow').directive('coverflow', function(){
       element.bind('touchstart',  scope.coverflow.touchStart.bind(scope.coverflow));
       element.bind('touchmove',   scope.coverflow.touchMove.bind(scope.coverflow));
       element.bind('touchend',    scope.coverflow.touchEnd.bind(scope.coverflow));
+
+      // Setup mouse listeners
+      element.bind('mousedown',  scope.coverflow.mouseDown.bind(scope.coverflow));
+      element.bind('mousemove',  scope.coverflow.mouseMove.bind(scope.coverflow));
+      element.bind('mouseup',    scope.coverflow.mouseUp.bind(scope.coverflow));
     } 
   };
 });
@@ -264,4 +269,28 @@ Coverflow.prototype.touchMove = function(event){
 
 Coverflow.prototype.touchEnd = function(event){
   event.preventDefault();
+}
+
+// Mouse Control
+Coverflow.prototype.mouseDown = function(event){
+  event.preventDefault();
+  this.velocity = 0;
+  this.touch.start = event.pageX;
+  this.mouseIsDown = true;
+}
+
+Coverflow.prototype.mouseMove = function(event){
+  event.preventDefault();
+  if (this.mouseIsDown){
+    var now   = event.originalEvent.pageX,
+        delta = this.touch.start - now;
+    this.position -= delta;
+    this.velocity -= delta/4;
+    this.touch.start = now;
+  }
+}
+
+Coverflow.prototype.mouseUp = function(event){
+  event.preventDefault();
+  this.mouseIsDown = false;
 }
