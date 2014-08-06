@@ -79,7 +79,7 @@ Cover.prototype.center = function(){
 Cover.prototype.updateCover = function(image){
   this.image = image;
   this.element[0].style.backgroundImage = "url('" + this.image + "')";
-}
+};
 
 // TODO: fix -webkit-prefix
 Cover.prototype.applyNextStyle = function(){
@@ -113,7 +113,7 @@ Cover.prototype.overflowAt = function(leftOrRight){
   this.positionId = positionId;
   if(!this.flow.images) return;
   this.updateCover(this.flow.images[this.positionId]);
-}
+};
 
 Cover.prototype.nextCoverX = function(){
   var rightBound  = this.flow.visibleCovers * this.frame,
@@ -197,7 +197,10 @@ Coverflow.prototype.init = function(){
   
   // Animate
   this.animateFrame();
-  
+
+  // Flag first cycle
+  this.justInitialized = true;
+
   return this;
 };
 
@@ -211,14 +214,21 @@ Coverflow.prototype.animateFrame = function(){
   });
   
   // Velocity, Position & Index
-  this.velocity      = this.nextVelocity();
-  this.position      = this.nextPosition();
+  this.velocity = this.nextVelocity();
+  if (this.velocity === 0 && !self.justInitialized) {
+    // skip animations to save power on idle
+    return;
+  }
+
+  this.position = this.nextPosition();
+
   this.positionIndex = this.currentPositionIndex();
   
   // Animate Cover Frame
   for(var i = 0; i < this.totalCovers; i++){
     this.covers[i].animateFrame();
   }
+  self.justInitialized = false;
 };
 
 // Easing
@@ -243,7 +253,7 @@ Coverflow.prototype.currentPositionIndex = function(){
     this.lastPositionIndex = index;
   }
   return index;
-}
+};
 
 Coverflow.prototype.coverForPositionIndex = function(index){
   for(var i = 0; i < this.totalCovers; i++){
@@ -256,7 +266,7 @@ Coverflow.prototype.touchStart = function(event){
   event.preventDefault();
   this.velocity = 0;
   this.touch.start = event.originalEvent.changedTouches[0].pageX;
-}
+};
 
 Coverflow.prototype.touchMove = function(event){
   event.preventDefault();
@@ -265,11 +275,11 @@ Coverflow.prototype.touchMove = function(event){
   this.position -= delta;
   this.velocity -= delta/4;
   this.touch.start = now;
-}
+};
 
 Coverflow.prototype.touchEnd = function(event){
   event.preventDefault();
-}
+};
 
 // Mouse Control
 Coverflow.prototype.mouseDown = function(event){
@@ -277,7 +287,7 @@ Coverflow.prototype.mouseDown = function(event){
   this.velocity = 0;
   this.touch.start = event.pageX;
   this.mouseIsDown = true;
-}
+};
 
 Coverflow.prototype.mouseMove = function(event){
   event.preventDefault();
@@ -288,9 +298,9 @@ Coverflow.prototype.mouseMove = function(event){
     this.velocity -= delta/4;
     this.touch.start = now;
   }
-}
+};
 
 Coverflow.prototype.mouseUp = function(event){
   event.preventDefault();
   this.mouseIsDown = false;
-}
+};
