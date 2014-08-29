@@ -81,9 +81,9 @@ Cover.prototype.updateCover = function(image){
   this.element[0].style.backgroundImage = "url('" + this.image + "')";
 };
 
-// TODO: fix -webkit-prefix
 Cover.prototype.applyNextStyle = function(){
   this.element[0].style["-webkit-transform"] = "translate3d(" + this.x + "px, " + this.y + "px, 0px) rotateY(" + this.rotation + "deg) scale3d(" + this.scale + ", " + this.scale + ", 1)";
+	this.element[0].style["transform"] = this.element[0].style["-webkit-transform"];
 };
 
 Cover.prototype.calculateNextStyle = function(){
